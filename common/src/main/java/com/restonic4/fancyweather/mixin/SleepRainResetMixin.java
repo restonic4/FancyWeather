@@ -1,6 +1,7 @@
 package com.restonic4.fancyweather.mixin;
 
 import com.restonic4.fancyweather.Constants;
+import com.restonic4.fancyweather.config.FancyWeatherMidnightConfig;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.ServerLevelData;
 import org.spongepowered.asm.mixin.Final;
@@ -8,7 +9,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.BooleanSupplier;
@@ -25,6 +25,8 @@ public class SleepRainResetMixin {
             )
     )
     private void beforeSetDayTime(BooleanSupplier pHasTimeLeft, CallbackInfo ci) {
+        if (!FancyWeatherMidnightConfig.enableImprovedBedRainSkip) return;
+
         ServerLevel self = (ServerLevel) (Object) this;
 
         long startingTicks = self.getLevelData().getDayTime();
@@ -49,6 +51,7 @@ public class SleepRainResetMixin {
 
     @Inject(method = "resetWeatherCycle", at = @At("HEAD"), cancellable = true)
     public void resetWeatherCycle(CallbackInfo ci) {
+        if (!FancyWeatherMidnightConfig.enableImprovedBedRainSkip) return;
         ci.cancel();
     }
 }

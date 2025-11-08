@@ -1,6 +1,7 @@
 package com.restonic4.fancyweather.mixin;
 
 import com.restonic4.fancyweather.Constants;
+import com.restonic4.fancyweather.config.FancyWeatherMidnightConfig;
 import com.restonic4.fancyweather.utils.RandomHelper;
 import com.restonic4.fancyweather.utils.WeatherHelper;
 import net.minecraft.core.BlockPos;
@@ -26,6 +27,8 @@ public class RainCampfireMixin {
 
     @Inject(method = "cookTick", at = @At("TAIL"))
     private static void cookTick(Level level, BlockPos blockPos, BlockState blockState, CampfireBlockEntity campfireBlockEntity, CallbackInfo ci) {
+        if (!FancyWeatherMidnightConfig.enableRainShouldExtinguishCampfires) return;
+
         ServerLevel serverLevel = (ServerLevel) level;
 
         if (WeatherHelper.isRainingOrThundering(serverLevel) && WeatherHelper.canRainingAtPosition(serverLevel, blockPos)) {

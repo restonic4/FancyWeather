@@ -1,0 +1,11 @@
+{
+  "fancyweather.midnightconfig.title":"FancyWeather config menu",
+  "fancyweather.midnightconfig.category.vanilla":"Vanilla like",
+  "fancyweather.midnightconfig.category.custom":"Custom",
+
+  "fancyweather.midnightconfig.enableImprovedBedRainSkip":"Improved Bed Rain Skip",
+  "fancyweather.midnightconfig.enableImprovedBedRainSkip.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Sleeping shortens rain duration instead of stopping it entirely.",
+
+  "fancyweather.midnightconfig.enableRainShouldExtinguishCampfires":"Rain Should Extinguish Campfires",
+  "fancyweather.midnightconfig.enableRainShouldExtinguishCampfires.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Campfires in the open are extinguished by rain."
+}

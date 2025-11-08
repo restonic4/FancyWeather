@@ -12,10 +12,13 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
     // Lithium compatibility test
-    modImplementation "maven.modrinth:lithium:mc1.21-0.13.1"
+    modImplementation "maven.modrinth:lithium:${lithium_version}"
 
     // Modmenu
-    modImplementation "maven.modrinth:modmenu:11.0.3"
+    modImplementation "maven.modrinth:modmenu:${modmenu_version}"
+
+    // MidnightLib
+    modImplementation include ("maven.modrinth:midnightlib:${project.midnightlib_version}-fabric")
 }
 
 repositories {
