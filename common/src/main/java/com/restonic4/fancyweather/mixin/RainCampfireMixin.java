@@ -1,5 +1,6 @@
 package com.restonic4.fancyweather.mixin;
 
+import com.restonic4.fancyweather.Constants;
 import com.restonic4.fancyweather.utils.RandomHelper;
 import com.restonic4.fancyweather.utils.WeatherHelper;
 import net.minecraft.core.BlockPos;
