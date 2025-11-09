@@ -78,7 +78,7 @@ dependencies {
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 
     // MidnightLib
-    modImplementation include ("maven.modrinth:midnightlib:${project.midnightlib_version}-forge")
+    implementation "maven.modrinth:midnightlib:${project.midnightlib_version}-forge"
 }
 
 publishing {

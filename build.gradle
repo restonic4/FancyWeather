@@ -4,3 +4,62 @@ plugins {
     // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
     id 'net.neoforged.moddev' version '0.1.110' apply false
 }
+
+// Root-level task to clean collected jars
+tasks.register('cleanCollectedJars', Delete) {
+    group = 'distribution'
+    description = 'Clean the root build/libs folder before collecting jars'
+    delete file("$buildDir/libs")
+}
+
+// Root-level task to collect jars from subprojects
+tasks.register('collectJars', Copy) {
+    group = 'distribution'
+    description = 'Collect main jars from subprojects into root build/libs, prefixing names'
+
+    into("$buildDir/libs")
+
+    subprojects.each { proj ->
+        from(proj.buildDir.toPath().resolve("libs").toFile()) {
+            include '*.jar'
+
+            // Exclude unwanted jars before renaming
+            eachFile { fileCopyDetails ->
+                def name = fileCopyDetails.name
+                println name
+                if (name.endsWith('-sources.jar') || name.endsWith('-javadoc.jar') || name.contains('-common-')) {
+                    fileCopyDetails.exclude()
+                }
+            }
+
+            // Prefix the jar with subproject name
+            rename { String fileName -> "${fileName}" }
+        }
+    }
+
+    doLast {
+        println "collectJars: copied jars to ${destinationDir}"
+    }
+}
+
+// Make collectJars depend on cleaning first
+tasks.named('collectJars') {
+    dependsOn(tasks.named('cleanCollectedJars'))
+}
+
+// wire collectJars to run after each subproject's real jar-producing task(s)
+tasks.named('collectJars') { provider ->
+    def producers = subprojects.collectMany { proj ->
+        // prefer remap/reobf style tasks used by Loom/MDG; otherwise fall back to build
+        def candidates = []
+        if (proj.tasks.findByName('remapJar')) candidates << proj.tasks.named('remapJar')
+        if (proj.tasks.findByName('reobfJar')) candidates << proj.tasks.named('reobfJar')
+        // some setups may have shadowJar or other custom jar tasks - include any *Jar tasks if desired
+        proj.tasks.withType(org.gradle.jvm.tasks.Jar).each { candidates << it }
+        if (candidates.isEmpty()) candidates << proj.tasks.named('build') // safe fallback
+        return candidates
+    }.unique()
+
+    // dependsOn accepts TaskProviders and Tasks; this wires up the providers at configuration time
+    dependsOn(producers)
+}

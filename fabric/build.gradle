@@ -18,7 +18,7 @@ dependencies {
     modImplementation "maven.modrinth:modmenu:${modmenu_version}"
 
     // MidnightLib
-    modImplementation include ("maven.modrinth:midnightlib:${project.midnightlib_version}-fabric")
+    modImplementation "maven.modrinth:midnightlib:${project.midnightlib_version}-fabric"
 }
 
 repositories {

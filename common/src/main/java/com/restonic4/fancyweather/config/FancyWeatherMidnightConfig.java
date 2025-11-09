@@ -1,13 +1,37 @@
 package com.restonic4.fancyweather.config;
 
+import com.restonic4.fancyweather.Constants;
 import eu.midnightdust.lib.config.MidnightConfig;
 
 public class FancyWeatherMidnightConfig extends MidnightConfig {
     public static final String VANILLA = "vanilla";
     public static final String CUSTOM = "custom";
 
+    /*
+        VANILLA TAB
+     */
+
     @Entry(category = VANILLA) public static boolean enableImprovedBedRainSkip = true;
+
+    @Comment(category = VANILLA) public static Comment spacer1;
+
     @Entry(category = VANILLA) public static boolean enableRainShouldExtinguishCampfires = true;
+    @Condition(requiredOption = Constants.MOD_ID + ":enableRainShouldExtinguishCampfires", requiredValue = "true")
+    @Entry(category = VANILLA, min = 20, max = 6000) public static int campfireRainLookupMinTickRange = 40;
+    @Condition(requiredOption = Constants.MOD_ID + ":enableRainShouldExtinguishCampfires", requiredValue = "true")
+    @Entry(category = VANILLA, min = 20, max = 6000) public static int campfireRainLookupMaxTickRange = 120;
+
+    @Comment(category = VANILLA) public static Comment spacer2;
+
+    @Entry(category = VANILLA) public static boolean enableCampfireFireSpread = true;
+    @Condition(requiredOption = Constants.MOD_ID + ":enableCampfireFireSpread", requiredValue = "true")
+    @Entry(category = VANILLA, min = 20, max = 6000) public static int campfireSpreadLookupMinTickRange = 160;
+    @Condition(requiredOption = Constants.MOD_ID + ":enableCampfireFireSpread", requiredValue = "true")
+    @Entry(category = VANILLA, min = 20, max = 6000) public static int campfireSpreadLookupMaxTickRange = 600;
+
+    /*
+        CUSTOM TAB
+     */
 
     @Entry(category = CUSTOM) public static boolean enableCustom = true;
 }

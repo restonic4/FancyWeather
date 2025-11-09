@@ -1,0 +1,5 @@
+Mod Version, Minecraft Version, Loader
+0.14, 1.21, Fabric
+0.14, 1.21, NeoForge
+0.14, 1.21, Quilt
+

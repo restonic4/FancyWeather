@@ -1,10 +1,15 @@
 package com.restonic4.fancyweather.utils;
 
-import com.restonic4.fancyweather.mixin.Vec3iAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class WeatherHelper {
     public static boolean isRainingOrThundering(ServerLevel level) {
@@ -20,15 +25,12 @@ public class WeatherHelper {
         return hasSkyVisibility(level, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
 
-    // Use accessor to avoid creating a blockPos each call
-    private static final BlockPos cacheBlockPos = new BlockPos(0, 0, 0);
+    // Use MutableBlockPos to avoid creating a blockPos each call
+    private static final BlockPos.MutableBlockPos skyCacheBlockPos = new BlockPos.MutableBlockPos();
     public static boolean hasSkyVisibility(ServerLevel level, int x, int y, int z) {
-        Vec3iAccessor accessor = ((Vec3iAccessor) cacheBlockPos);
-        accessor.invokeSetX(x);
-        accessor.invokeSetY(y);
-        accessor.invokeSetZ(z);
+        skyCacheBlockPos.set(x, y, z);
 
-        int skyLight = level.getLightEngine().getLayerListener(LightLayer.SKY).getLightValue(cacheBlockPos);
+        int skyLight = level.getLightEngine().getLayerListener(LightLayer.SKY).getLightValue(skyCacheBlockPos);
         return skyLight >= level.getMaxLightLevel();
     }
 
@@ -47,5 +49,78 @@ public class WeatherHelper {
         if (hasSkyVisibility(level, x, y, z - 1) && ++count >= 2) return true;
 
         return false;
+    }
+
+    // bit flags, instead of creating arrays each call and a bunch of blockpos
+    public static final int CAMPFIRE_POS_PLUS_X  = 1 << 0;
+    public static final int CAMPFIRE_POS_MINUS_X = 1 << 1;
+    public static final int CAMPFIRE_POS_PLUS_Z  = 1 << 2;
+    public static final int CAMPFIRE_POS_MINUS_Z = 1 << 3;
+
+    private static final BlockPos.MutableBlockPos spreadCacheBlockPos = new BlockPos.MutableBlockPos();
+    public static int getNearbyCampfiresMask(ServerLevel level, BlockPos pos) {
+        int x = pos.getX(), y = pos.getY(), z = pos.getZ();
+        BlockState state;
+
+        int mask = 0;
+
+        spreadCacheBlockPos.set(x + 1, y, z);
+        state = level.getBlockState(spreadCacheBlockPos);
+        if (state.getBlock() instanceof CampfireBlock && !state.getValue(CampfireBlock.LIT)) mask |= CAMPFIRE_POS_PLUS_X;
+
+        spreadCacheBlockPos.set(x - 1, y, z);
+        state = level.getBlockState(spreadCacheBlockPos);
+        if (state.getBlock() instanceof CampfireBlock && !state.getValue(CampfireBlock.LIT)) mask |= CAMPFIRE_POS_MINUS_X;
+
+        spreadCacheBlockPos.set(x, y, z + 1);
+        state = level.getBlockState(spreadCacheBlockPos);
+        if (state.getBlock() instanceof CampfireBlock && !state.getValue(CampfireBlock.LIT)) mask |= CAMPFIRE_POS_PLUS_Z;
+
+        spreadCacheBlockPos.set(x, y, z - 1);
+        state = level.getBlockState(spreadCacheBlockPos);
+        if (state.getBlock() instanceof CampfireBlock && !state.getValue(CampfireBlock.LIT)) mask |= CAMPFIRE_POS_MINUS_Z;
+
+        return mask;
+    }
+
+    public static BlockPos getRandomCampfirePos(int mask, BlockPos.MutableBlockPos target) {
+        if (mask == 0) return null;
+
+        // Count how many possible directions are set
+        int count = Integer.bitCount(mask);
+        if (count == 0) return null;
+
+        // Pick a random index among the set bits
+        int targetIndex = ThreadLocalRandom.current().nextInt(count);
+
+        // Iterate through the bits until we reach the chosen one
+        int index = 0;
+
+        if ((mask & CAMPFIRE_POS_PLUS_X) != 0) {
+            if (index++ == targetIndex) {
+                target.set(target.getX() + 1, target.getY(), target.getZ());
+                return target;
+            }
+        }
+        if ((mask & CAMPFIRE_POS_MINUS_X) != 0) {
+            if (index++ == targetIndex) {
+                target.set(target.getX() - 1, target.getY(), target.getZ());
+                return target;
+            }
+        }
+        if ((mask & CAMPFIRE_POS_PLUS_Z) != 0) {
+            if (index++ == targetIndex) {
+                target.set(target.getX(), target.getY(), target.getZ() + 1);
+                return target;
+            }
+        }
+        if ((mask & CAMPFIRE_POS_MINUS_Z) != 0) {
+            if (index++ == targetIndex) {
+                target.set(target.getX(), target.getY(), target.getZ() - 1);
+                return target;
+            }
+        }
+
+        return null;
     }
 }

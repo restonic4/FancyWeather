@@ -1,5 +1,5 @@
 {
-  "fancyweather.midnightconfig.title":"FancyWeather config menu",
+  "fancyweather.midnightconfig.title":"FancyWeather Config",
   "fancyweather.midnightconfig.category.vanilla":"Vanilla like",
   "fancyweather.midnightconfig.category.custom":"Custom",
 
@@ -7,5 +7,20 @@
   "fancyweather.midnightconfig.enableImprovedBedRainSkip.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Sleeping shortens rain duration instead of stopping it entirely.",
 
   "fancyweather.midnightconfig.enableRainShouldExtinguishCampfires":"Rain Should Extinguish Campfires",
-  "fancyweather.midnightconfig.enableRainShouldExtinguishCampfires.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Campfires in the open are extinguished by rain."
+  "fancyweather.midnightconfig.enableRainShouldExtinguishCampfires.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Campfires in the open are extinguished by rain.",
+
+  "fancyweather.midnightconfig.campfireRainLookupMinTickRange":"Minimum tick range.",
+  "fancyweather.midnightconfig.campfireRainLookupMinTickRange.tooltip":"Range to check conditions and apply the feature.",
+
+  "fancyweather.midnightconfig.campfireRainLookupMaxTickRange":"Maximum tick range",
+  "fancyweather.midnightconfig.campfireRainLookupMaxTickRange.tooltip":"Range to check conditions and apply the feature.",
+
+  "fancyweather.midnightconfig.enableCampfireFireSpread":"Campfire Fire Spread",
+  "fancyweather.midnightconfig.enableCampfireFireSpread.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Lit campfires ignite adjacent unlit ones.",
+
+  "fancyweather.midnightconfig.campfireSpreadLookupMinTickRange":"Minimum tick range.",
+  "fancyweather.midnightconfig.campfireSpreadLookupMinTickRange.tooltip":"Range to check conditions and apply the feature.",
+
+  "fancyweather.midnightconfig.campfireSpreadLookupMaxTickRange":"Maximum tick range",
+  "fancyweather.midnightconfig.campfireSpreadLookupMaxTickRange.tooltip":"Range to check conditions and apply the feature."
 }

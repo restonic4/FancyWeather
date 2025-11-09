@@ -5,9 +5,8 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_18",
   "mixins": [
-    "RainCampfireMixin",
-    "SleepRainResetMixin",
-    "Vec3iAccessor"
+    "CampfireMixin",
+    "SleepRainResetMixin"
   ],
   "client": [
   ],

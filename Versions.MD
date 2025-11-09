@@ -1,15 +1,49 @@
+# Info
+- Forge: https://files.minecraftforge.net/net/minecraftforge/forge/index_1.21.html
+- NeoForge: https://projects.neoforged.net/neoforged/neoform and https://neoforged.net/mod-generator/ and https://projects.neoforged.net/neoforged/fancymodloader
+- Fabric: 
+- Mappings: https://parchmentmc.org/docs/getting-started#choose-a-version
+
 # Versions
 
-## 1.21
-
+## 1.21.1
 ```groovy
-# General
-version=1.0
+# Minecraft
+minecraft_version=1.21.1
+java_version=21
+minecraft_version_range=[1.21.1]
+
+# Mappings
+parchment_minecraft=1.21.1
+parchment_version=2024.11.17
+
+# Fabric
+fabric_version=0.116.7+1.21.1
+fabric_loader_version=0.15.11
+
+# Forge
+forge_version=51.0.33
+forge_loader_version_range=[51,)
+
+# NeoForge
+neoforge_version=21.0.167
+neoforge_loader_version_range=[4,)
+neo_form_version=1.21.1-20240808.144430
+
+# Libs
+midnightlib_version=1.7.5+1.21.1
+lithium_version=mc1.21.1-0.15.0-fabric
+modmenu_version=11.0.3
+```
+
+## 1.21
+```groovy
+# Minecraft
 minecraft_version=1.21
 java_version=21
-minecraft_version_range=[1.21, 1.22)
+minecraft_version_range=[1.21]
 
-# Mappings: https://parchmentmc.org/docs/getting-started#choose-a-version
+# Mappings
 parchment_minecraft=1.21
 parchment_version=2024.06.23
 
@@ -18,11 +52,46 @@ fabric_version=0.100.1+1.21
 fabric_loader_version=0.15.11
 
 # Forge
-forge_version=51.0.17
+forge_version=51.0.33
 forge_loader_version_range=[51,)
 
 # NeoForge
-neoforge_version=21.0.37-beta
+neoforge_version=21.0.167
 neoforge_loader_version_range=[4,)
 neo_form_version=1.21-20240613.152323
+
+# Libs
+midnightlib_version=1.7.5+1.21.1
+lithium_version=mc1.21-0.13.1
+modmenu_version=11.0.3
+```
+
+## 1.20.1 BROKEN
+```groovy
+# Minecraft
+minecraft_version=1.20.1
+java_version=17
+minecraft_version_range=[1.20.1]
+
+# Mappings
+parchment_minecraft=1.20.1
+parchment_version=2023.09.03
+
+# Fabric
+fabric_version=0.92.6+1.20.1
+fabric_loader_version=0.15.11
+
+# Forge
+forge_version=47.4.0
+forge_loader_version_range=[47,)
+
+# NeoForge
+neoforge_version=21.0.167
+neoforge_loader_version_range=[4,)
+neo_form_version=1.20.2-20241215.201144
+
+# Libs
+midnightlib_version=1.4.1
+lithium_version=mc1.20.1-0.11.3-fabric
+modmenu_version=7.2.2
 ```
