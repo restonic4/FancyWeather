@@ -26,7 +26,7 @@ forge_version=51.0.33
 forge_loader_version_range=[51,)
 
 # NeoForge
-neoforge_version=21.0.167
+neoforge_version=21.1.214
 neoforge_loader_version_range=[4,)
 neo_form_version=1.21.1-20240808.144430
 
