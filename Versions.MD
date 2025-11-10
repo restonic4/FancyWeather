@@ -1,7 +1,7 @@
 # Info
 - Forge: https://files.minecraftforge.net/net/minecraftforge/forge/index_1.21.html
 - NeoForge: https://projects.neoforged.net/neoforged/neoform and https://neoforged.net/mod-generator/ and https://projects.neoforged.net/neoforged/fancymodloader
-- Fabric: 
+- Fabric: https://fabricmc.net/develop/
 - Mappings: https://parchmentmc.org/docs/getting-started#choose-a-version
 
 # Versions
