@@ -30,8 +30,8 @@ public class FireArrowMixin {
         BlockPos desiredPos = blockHitResult.getBlockPos().relative(blockHitResult.getDirection());
         BlockState currentState = level.getBlockState(desiredPos);
 
-        // Only set fire if the block can be replaced
-        if (currentState.canBeReplaced()) {
+        // Only set fire if the block can be replaced and if it's not liquid
+        if (currentState.canBeReplaced() && currentState.getFluidState().isEmpty()) {
             level.destroyBlock(desiredPos, true); // Drops items
             level.setBlock(desiredPos, BaseFireBlock.getState(level, desiredPos), 11);
         }

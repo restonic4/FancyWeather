@@ -8,7 +8,7 @@ Linkie translation tool: https://linkie.shedaniel.dev/mappings?translateMode=ns&
 
 # Versions
 
-## 1.21.1
+## 1.21.1 (Fabric, NeoForge, Quilt)
 ```groovy
 # Minecraft
 minecraft_version=1.21.1
@@ -38,7 +38,7 @@ lithium_version=mc1.21.1-0.15.0-fabric
 modmenu_version=11.0.3
 ```
 
-## 1.21
+## 1.21 (Fabric, NeoForge, Quilt)
 ```groovy
 # Minecraft
 minecraft_version=1.21
@@ -68,7 +68,7 @@ lithium_version=mc1.21-0.13.1
 modmenu_version=11.0.3
 ```
 
-## 1.20.1 BROKEN
+## 1.20.1 (Fabric, Forge, Quilt) BROKEN
 ```groovy
 # Minecraft
 minecraft_version=1.20.1

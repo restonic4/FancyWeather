@@ -62,4 +62,23 @@ tasks.named('collectJars') { provider ->
 
     // dependsOn accepts TaskProviders and Tasks; this wires up the providers at configuration time
     dependsOn(producers)
+
+    doLast {
+        println "collectJars: copied jars to ${destinationDir}"
+
+        ['fabric', 'neoforge', 'forge'].each { pName ->
+            def p = subprojects.find { it.name == pName }
+            if (p) {
+                def libsDir = file("${p.buildDir}/libs")
+                if (libsDir.exists()) {
+                    project.delete(fileTree(dir: libsDir, include: '**/*'))
+                    println "collectJars -> cleaned ${libsDir}"
+                } else {
+                    println "collectJars -> no libs dir for ${pName}"
+                }
+            } else {
+                println "collectJars -> subproject '${pName}' not found"
+            }
+        }
+    }
 }
