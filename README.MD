@@ -8,18 +8,24 @@ _This mod replaces our old mod called <a href="https://modrinth.com/mod/rain-sho
 
 <h1>Features</h1>
 <ul>
-  <li>
-    Rain extinguishes campfires when they're exposed to it.
-  </li>
-  <li>
-    When the night is skipped because all players sleep, the rain now continues, only the time spent sleeping is skipped.
-  </li>
-  <li>
-    Campfires can now ignite nearby unlit campfires.
-  </li>
-  <li>
-    Sandstorms (Soon)
-  </li>
+    <li>
+        Rain extinguishes campfires when they're exposed to it.
+    </li>
+    <li>
+        When the night is skipped because all players sleep, the rain now continues, only the time spent sleeping is skipped.
+    </li>
+    <li>
+        Campfires can now ignite nearby unlit campfires.
+    </li>
+    <li>
+        Rain makes crops grow faster.
+    </li>
+    <li>
+        Fire arrows now spread fire.
+    </li>
+    <li>
+        Sandstorms (Soon)
+    </li>
 </ul>
 
 <h1>Configurable</h1>
