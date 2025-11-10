@@ -1,7 +1,8 @@
 # 1.1.0
 
 ## New features
-- Rain makes crops gorw faster.
+- Rain makes crops grow faster.
+- Fire arrows now spread fire.
 
 # 1.0.0
 

@@ -29,6 +29,16 @@ public class FancyWeatherMidnightConfig extends MidnightConfig {
     @Condition(requiredOption = Constants.MOD_ID + ":enableCampfireFireSpread", requiredValue = "true")
     @Entry(category = VANILLA, min = 20, max = 6000) public static int campfireSpreadLookupMaxTickRange = 600;
 
+    @Comment(category = VANILLA) public static Comment spacer3;
+
+    @Entry(category = VANILLA) public static boolean enableCropRainBoost = true;
+    @Condition(requiredOption = Constants.MOD_ID + ":enableCropRainBoost", requiredValue = "true")
+    @Entry(category = VANILLA, min = 2, max = 64) public static int cropRainBoostMultiplier = 20;
+
+    @Comment(category = VANILLA) public static Comment spacer4;
+
+    @Entry(category = VANILLA) public static boolean enableFireSpreadingArrows = true;
+
     /*
         CUSTOM TAB
      */

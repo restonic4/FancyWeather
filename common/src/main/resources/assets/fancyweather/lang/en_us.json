@@ -22,5 +22,14 @@
   "fancyweather.midnightconfig.campfireSpreadLookupMinTickRange.tooltip":"Range to check conditions and apply the feature.",
 
   "fancyweather.midnightconfig.campfireSpreadLookupMaxTickRange":"Maximum tick range",
-  "fancyweather.midnightconfig.campfireSpreadLookupMaxTickRange.tooltip":"Range to check conditions and apply the feature."
+  "fancyweather.midnightconfig.campfireSpreadLookupMaxTickRange.tooltip":"Range to check conditions and apply the feature.",
+
+  "fancyweather.midnightconfig.enableCropRainBoost":"Crop Rain Boost",
+  "fancyweather.midnightconfig.enableCropRainBoost.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Crops grow faster when it's raining.",
+
+  "fancyweather.midnightconfig.cropRainBoostMultiplier":"Boost multiplier.",
+  "fancyweather.midnightconfig.cropRainBoostMultiplier.tooltip":"The amount of tries the crop executes to grow. Vanilla only tries once.",
+
+  "fancyweather.midnightconfig.enableFireSpreadingArrows":"Fire Spreading Arrows",
+  "fancyweather.midnightconfig.enableFireSpreadingArrows.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Arrows on fire spread fire on hit."
 }

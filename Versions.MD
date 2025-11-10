@@ -4,6 +4,8 @@
 - Fabric: https://fabricmc.net/develop/
 - Mappings: https://parchmentmc.org/docs/getting-started#choose-a-version
 
+Linkie translation tool: https://linkie.shedaniel.dev/mappings?translateMode=ns&namespace=yarn&version=1.21.10&search=ServerWorld.tickChunk&translateAs=mojang
+
 # Versions
 
 ## 1.21.1

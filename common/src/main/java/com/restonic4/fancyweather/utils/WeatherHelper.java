@@ -4,11 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class WeatherHelper {
@@ -122,5 +123,20 @@ public class WeatherHelper {
         }
 
         return null;
+    }
+
+    private static final Set<Class<?>> CROP_BLOCKS = Set.of(
+            CropBlock.class,
+            SaplingBlock.class,
+            BambooStalkBlock.class,
+            BambooSaplingBlock.class,
+            SweetBerryBushBlock.class,
+            StemBlock.class,
+            CocoaBlock.class,
+            SugarCaneBlock.class,
+            MossBlock.class
+    );
+    public static boolean isCropBlock(Block block) {
+        return CROP_BLOCKS.stream().anyMatch(clazz -> clazz.isInstance(block));
     }
 }
