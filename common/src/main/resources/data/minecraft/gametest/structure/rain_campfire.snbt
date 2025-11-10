@@ -1,0 +1,13 @@
+{
+    DataVersion: 3955,
+    size: [1, 2, 1],
+    data: [
+        {pos: [0, 0, 0], state: "minecraft:bedrock"},
+        {pos: [0, 1, 0], state: "minecraft:campfire{facing:south,lit:true,signal_fire:false,waterlogged:false}", nbt: {CookingTimes: [I; 0, 0, 0, 0], CookingTotalTimes: [I; 0, 0, 0, 0], Items: [], id: "minecraft:campfire"}}
+    ],
+    entities: [],
+    palette: [
+        "minecraft:bedrock",
+        "minecraft:campfire{facing:south,lit:true,signal_fire:false,waterlogged:false}"
+    ]
+}

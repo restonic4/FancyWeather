@@ -17,6 +17,8 @@
   "entrypoints": {
     "main": [
       "com.restonic4.fancyweather.Fancyweather"
+    ],"fabric-gametest": [
+      "com.restonic4.fancyweather.gametests.FancyGameTests"
     ]
   },
   "mixins": [
