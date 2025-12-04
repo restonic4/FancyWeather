@@ -1,9 +1,19 @@
 plugins {
     id 'multiloader-common'
-    id 'net.neoforged.moddev'
+    //id 'net.neoforged.moddev'
+    id 'net.neoforged.moddev.legacyforge'
+    id 'org.spongepowered.gradle.vanilla'
 }
 
-neoForge {
+// Forge
+minecraft {
+    version(minecraft_version)
+    if(file("src/main/resources/${mod_id}.accesswidener").exists()){
+        accessWideners(file("src/main/resources/${mod_id}.accesswidener"))
+    }
+}
+
+/*neoForge {
     neoFormVersion = neo_form_version
     // Automatically enable AccessTransformers if the file exists
     def at = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -14,7 +24,7 @@ neoForge {
         minecraftVersion = parchment_minecraft
         mappingsVersion = parchment_version
     }
-}
+}*/
 
 repositories {
     maven { url 'https://api.modrinth.com/maven' }

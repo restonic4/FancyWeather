@@ -57,7 +57,7 @@ public class FancyGameTests {
         });
     }
 
-    @GameTest(template = "minecraft:rain_campfire", timeoutTicks = 60*20, skyAccess = true, batch = "weather_rain")
+    @GameTest(template = "minecraft:rain_campfire", timeoutTicks = 60*20, batch = "weather_rain")
     public void testRainCampfire(GameTestHelper gameTestHelper) {
         ServerLevel severLevel = gameTestHelper.getLevel();
 
@@ -73,7 +73,7 @@ public class FancyGameTests {
         });
     }
 
-    @GameTest(template = "minecraft:rain_crop", timeoutTicks = 20*60*20 + 10*20, skyAccess = true, batch = "weather_rain")
+    @GameTest(template = "minecraft:rain_crop", timeoutTicks = 20*60*20 + 10*20, batch = "weather_rain")
     public void testRainCrop(GameTestHelper gameTestHelper) {
         ServerLevel severLevel = gameTestHelper.getLevel();
 
