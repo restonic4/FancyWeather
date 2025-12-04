@@ -27,6 +27,7 @@ ordering = "NONE"
 side = "BOTH"
 [[dependencies."${mod_id}"]]
 modId = "midnightlib"
+versionRange = "[1.4.1,)"
 mandatory = true
 ordering = "NONE"
 side = "CLIENT"
