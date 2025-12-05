@@ -23,6 +23,19 @@ _This mod replaces our old mod called <a href="https://modrinth.com/mod/rain-sho
     <li>
         Fire arrows now spread fire.
     </li>
+</ul>
+
+<h3>Planned features</h3>
+<ul>
+    <li>
+        Option to sync real life time with Minecraft.
+    </li>
+    <li>
+        Option to sync real life weather with Minecraft.
+    </li>
+    <li>
+        Cloudy and fog weather states (like rain and thunder, without compromising compatibility with other mods)
+    </li>
     <li>
         Sandstorms (Soon)
     </li>
