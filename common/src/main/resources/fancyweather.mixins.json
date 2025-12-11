@@ -8,6 +8,8 @@
     "CampfireMixin",
     "CropsRainGrowMixin",
     "FireArrowMixin",
+    "MinecraftServerMixin",
+    "ServerLevelMixin",
     "SleepRainResetMixin"
   ],
   "client": [
