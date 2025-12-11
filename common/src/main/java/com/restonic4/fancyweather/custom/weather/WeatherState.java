@@ -45,6 +45,7 @@ public enum WeatherState {
                 }
             }
         }
-        return null;
+
+        return CLEAR;
     }
 }

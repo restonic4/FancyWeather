@@ -5,8 +5,7 @@ import com.restonic4.fancyweather.MainFancyWeather;
 import com.restonic4.fancyweather.config.FancyWeatherMidnightConfig;
 import com.restonic4.fancyweather.custom.events.ClientEvents;
 import com.restonic4.fancyweather.custom.events.ServerEvents;
-import com.restonic4.fancyweather.custom.weather.WeatherAPI;
-import com.restonic4.fancyweather.custom.weather.WeatherVisualEffectsController;
+import com.restonic4.fancyweather.custom.weather.*;
 import com.restonic4.fancyweather.utils.FileManager;
 import com.restonic4.fancyweather.utils.GeolocationUtil;
 import com.restonic4.fancyweather.utils.MathHelper;
@@ -35,6 +34,7 @@ public class Synchronizer {
     private static int autosaveTickCounter = 0;
     private static int weatherUpdateTickCounter = 0;
     private static long forcedTicks = -1L;
+    private static int forcedWMO = -1;
 
     public static void init() {
         ServerEvents.TICK_STARTED.register((server) -> {
@@ -66,6 +66,10 @@ public class Synchronizer {
     public static void tick(Level level) {
         if (level == null) return;
 
+        int currentWMO = getCurrentWMOCode();
+        WeatherState weatherState = WeatherState.fromCode(currentWMO);
+        WeatherStateStrength weatherStateStrength = WeatherStateStrength.fromCode(currentWMO);
+
         if (level instanceof ServerLevel serverLevel) {
             ensureData(serverLevel);
 
@@ -80,9 +84,40 @@ public class Synchronizer {
                 WeatherAPI.updateWeatherData(serverLevel);
                 weatherUpdateTickCounter = 0;
             }
+
+            // Apply weather
+            if (weatherState == WeatherState.THUNDERSTORM) {
+                serverLevel.setWeatherParameters(0, 20, true, true);
+            } else if (weatherState == WeatherState.RAINING || weatherState == WeatherState.SNOWING) {
+                serverLevel.setWeatherParameters(0, 20, true, false);
+            } else if (weatherState == WeatherState.CLEAR || weatherState == WeatherState.CLOUDY || weatherState == WeatherState.FOG ) {
+                serverLevel.setWeatherParameters(20, 0, false, false);
+            }
+        } else { // Client side effects, cloudy and fog
+            if (weatherState == WeatherState.CLOUDY) {
+                if (weatherStateStrength == WeatherStateStrength.SLIGHT) {
+                    WeatherVisualEffectsController.setCloudiness(0.35f);
+                } else if (weatherStateStrength == WeatherStateStrength.MODERATE) {
+                    WeatherVisualEffectsController.setCloudiness(0.5f);
+                } else if (weatherStateStrength == WeatherStateStrength.INTENSE) {
+                    WeatherVisualEffectsController.setCloudiness(1f);
+                }
+            } else {
+                WeatherVisualEffectsController.setCloudiness(0);
+            }
+
+            if (weatherState == WeatherState.FOG) {
+                if (weatherStateStrength == WeatherStateStrength.SLIGHT) {
+                    WeatherVisualEffectsController.setCurrentFogEnd(0.35f);
+                } else if (weatherStateStrength == WeatherStateStrength.MODERATE) {
+                    WeatherVisualEffectsController.setCurrentFogEnd(0.5f);
+                } else if (weatherStateStrength == WeatherStateStrength.INTENSE) {
+                    WeatherVisualEffectsController.setCurrentFogEnd(1f);
+                }
+            } else {
+                WeatherVisualEffectsController.setCurrentFogEnd(0);
+            }
         }
-
-
     }
 
     /**
@@ -160,6 +195,22 @@ public class Synchronizer {
 
     public static WeatherSave getLoadedData() {
         return loadedData;
+    }
+
+    public static int getCurrentWMOCode() {
+        if (forcedWMO >= 0) return forcedWMO;
+        if (loadedData == null) return 0;
+
+        Object entry = loadedData.weather_data.get("current");
+        if (entry instanceof WeatherRequestData.Current currentWMOCode) {
+            return currentWMOCode.weather_code;
+        }
+
+        return 0;
+    }
+
+    public static void setForcedWMO(int wmo) {
+        Synchronizer.forcedWMO = wmo;
     }
 
     /**
