@@ -57,6 +57,9 @@ public class Synchronizer {
             // Reset cache
             loadedData = null;
             autosaveTickCounter = 0;
+            weatherUpdateTickCounter = 0;
+            forcedTicks = -1L;
+            forcedWMO = -1;
         });
     }
 
