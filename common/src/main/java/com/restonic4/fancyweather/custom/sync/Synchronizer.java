@@ -55,7 +55,9 @@ public class Synchronizer {
         });
 
         ServerEvents.WORLD_LOADED.register((server) -> {
+            ensureData(server.overworld());
             WeatherAPI.updateWeatherData(server.overworld());
+            TimeSkipper.onWorldLoaded(server);
         });
 
         // Saving data
@@ -68,6 +70,7 @@ public class Synchronizer {
             weatherUpdateTickCounter = 0;
             forcedTicks = -1L;
             forcedWMO = -1;
+            TimeSkipper.onWorldUnLoaded(server);
         });
 
         ServerEvents.PLAYER_JOINED.register((server, serverPlayer) -> {
@@ -111,6 +114,8 @@ public class Synchronizer {
             } else if (weatherState == WeatherState.CLEAR || weatherState == WeatherState.CLOUDY || weatherState == WeatherState.FOG ) {
                 serverLevel.setWeatherParameters(20, 0, false, false);
             }
+
+            TimeSkipper.tick();
         } else if (level instanceof ClientLevel clientLevel) { // Client side effects, cloudy and fog
             if (weatherState == WeatherState.CLOUDY) {
                 if (weatherStateStrength == WeatherStateStrength.SLIGHT) {

@@ -10,9 +10,13 @@
     "CropsRainGrowMixin",
     "FireArrowMixin",
     "LevelChunkMixin",
+    "LivingEntityMixin",
     "MinecraftServerMixin",
+    "MobEffectInstanceAccessor",
     "PlayerListMixin",
+    "ServerLevelEntityCallbacksMixin",
     "ServerLevelMixin",
+    "ServerPlayerMixin",
     "SleepRainResetMixin"
   ],
   "client": [
