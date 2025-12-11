@@ -1,3 +1,8 @@
+# 1.2.0
+
+## New features
+- Real Life time and weather sync option.
+
 # 1.1.0
 
 ## New features

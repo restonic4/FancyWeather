@@ -9,6 +9,7 @@
     "CommandsMixin",
     "CropsRainGrowMixin",
     "FireArrowMixin",
+    "LevelChunkMixin",
     "MinecraftServerMixin",
     "PlayerListMixin",
     "ServerLevelMixin",
@@ -16,7 +17,9 @@
   ],
   "client": [
     "ClientLevelMixin",
-    "ClientPacketListenerMixin"
+    "ClientPacketListenerMixin",
+    "FogRendererMixin",
+    "LevelRendererMixin"
   ],
   "server": [],
   "injectors": {

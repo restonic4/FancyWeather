@@ -3,7 +3,9 @@ package com.restonic4.fancyweather.custom.events;
 import com.restonic4.fancyweather.custom.events.factory.Event;
 import com.restonic4.fancyweather.custom.events.factory.EventFactory;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 public class ServerEvents {
     public static final Event<WorldLoaded> WORLD_LOADED = EventFactory.createArray(WorldLoaded.class, callbacks -> (server) -> {
@@ -59,5 +61,27 @@ public class ServerEvents {
     @FunctionalInterface
     public interface PlayerJoined {
         void onEvent(MinecraftServer server, ServerPlayer serverPlayer);
+    }
+
+    public static final Event<ChunkLoaded> CHUNK_LOADED = EventFactory.createArray(ChunkLoaded.class, callbacks -> (serverLevel, levelChunk) -> {
+        for (ChunkLoaded callback : callbacks) {
+            callback.onEvent(serverLevel, levelChunk);
+        }
+    });
+
+    @FunctionalInterface
+    public interface ChunkLoaded {
+        void onEvent(ServerLevel serverLevel, LevelChunk levelChunk);
+    }
+
+    public static final Event<ChunkUnloaded> CHUNK_UNLOADED = EventFactory.createArray(ChunkUnloaded.class, callbacks -> (serverLevel, levelChunk) -> {
+        for (ChunkUnloaded callback : callbacks) {
+            callback.onEvent(serverLevel, levelChunk);
+        }
+    });
+
+    @FunctionalInterface
+    public interface ChunkUnloaded {
+        void onEvent(ServerLevel serverLevel, LevelChunk levelChunk);
     }
 }

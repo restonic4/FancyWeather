@@ -23,18 +23,15 @@ _This mod replaces our old mod called <a href="https://modrinth.com/mod/rain-sho
     <li>
         Fire arrows now spread fire.
     </li>
+    <li>
+        Option to sync real life time and weather with Minecraft (Uses Geolocation to access your location's weather, more info bellow)
+    </li>
 </ul>
 
 <h3>Planned features</h3>
 <ul>
     <li>
-        Option to sync real life time with Minecraft.
-    </li>
-    <li>
-        Option to sync real life weather with Minecraft.
-    </li>
-    <li>
-        Cloudy and fog weather states (like rain and thunder, without compromising compatibility with other mods)
+        Cloudy and fog weather effects compatibility wih shaders.
     </li>
     <li>
         Sandstorms (Soon)
@@ -43,6 +40,31 @@ _This mod replaces our old mod called <a href="https://modrinth.com/mod/rain-sho
 
 <h1>Configurable</h1>
 You can pretty much enable or disable every single feature in the mod. Don't like sandstorms? Turn them off. Hate rain not skipping at sleep? Disable it. Want to remove custom items or anything else? Go for it. You can even disable everything and make the mod completely useless if that's what you're into.
+
+<h2>Real Life Sync / Geolocation</h2>
+If what worries you is geolocation, don’t worry, it’s turned off by default.
+We use geolocation to get your latitude and longitude so we can know what precipitation is happening in your area.
+
+This data will only be requested once in the background and will be stored in your world, in the "overworld" folder, in the file "DONT_OPEN_ON_PUBLIC.json". Here you can freely manipulate your latitude and longitude to simulate being in another location or correct inaccuracies, since your coordinates may not be precise depending on your internet provider.
+
+This data is not sent anywhere.
+
+What this system does is synchronize real-world time with Minecraft, counting the days since the world was created, not the traditional Minecraft days.
+
+It also synchronizes the following states:
+- CLEAR
+- CLOUDY
+- FOG
+- RAINING
+- SNOWING
+- THUNDERSTORM
+
+And the following intensities:
+- SLIGHT
+- MODERATE
+- INTENSE
+
+You can check this data with the command: ``/fancyweather weather get status``
 
 <h1>Compatibility</h1>
 <ul>

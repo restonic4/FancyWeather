@@ -18,20 +18,12 @@ public class WeatherVisualEffectsController {
         return currentCloudiness;
     }
 
-    public static float getTargetFogEnd() {
-        return targetFogEnd;
+    public static void setFogEnd(float value) {
+        targetFogEnd = Mth.clamp(value, 0.0f, 1.0f);
     }
 
-    public static void setTargetFogEnd(float targetFogEnd) {
-        WeatherVisualEffectsController.targetFogEnd = targetFogEnd;
-    }
-
-    public static float getCurrentFogEnd() {
+    public static float getFogEnd() {
         return currentFogEnd;
-    }
-
-    public static void setCurrentFogEnd(float currentFogEnd) {
-        WeatherVisualEffectsController.currentFogEnd = currentFogEnd;
     }
 
     /**

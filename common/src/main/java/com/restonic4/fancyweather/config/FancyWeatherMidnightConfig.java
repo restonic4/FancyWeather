@@ -46,4 +46,8 @@ public class FancyWeatherMidnightConfig extends MidnightConfig {
     @Entry(category = SYNC) public static boolean enableSync = false;
 
     @Comment(category = SYNC) public static Comment spacer5;
+
+    @Entry(category = SYNC) public static boolean enableCropSync = true;
+    @Entry(category = SYNC) public static boolean enableFurnaceCookSync = true;
+    @Entry(category = SYNC) public static boolean enablePotionEffectsDurationSync = true;
 }

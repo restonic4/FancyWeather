@@ -73,6 +73,8 @@ public class Synchronizer {
         ServerEvents.PLAYER_JOINED.register((server, serverPlayer) -> {
             sendSyncPacket(serverPlayer);
         });
+
+        TimeSkipper.init();
     }
 
     /**
@@ -124,14 +126,14 @@ public class Synchronizer {
 
             if (weatherState == WeatherState.FOG) {
                 if (weatherStateStrength == WeatherStateStrength.SLIGHT) {
-                    WeatherVisualEffectsController.setCurrentFogEnd(0.35f);
+                    WeatherVisualEffectsController.setFogEnd(0.35f);
                 } else if (weatherStateStrength == WeatherStateStrength.MODERATE) {
-                    WeatherVisualEffectsController.setCurrentFogEnd(0.5f);
+                    WeatherVisualEffectsController.setFogEnd(0.5f);
                 } else if (weatherStateStrength == WeatherStateStrength.INTENSE) {
-                    WeatherVisualEffectsController.setCurrentFogEnd(1f);
+                    WeatherVisualEffectsController.setFogEnd(1f);
                 }
             } else {
-                WeatherVisualEffectsController.setCurrentFogEnd(0);
+                WeatherVisualEffectsController.setFogEnd(0);
             }
         }
     }

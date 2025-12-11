@@ -34,5 +34,14 @@
   "fancyweather.midnightconfig.enableFireSpreadingArrows.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Arrows on fire spread fire on hit.",
 
   "fancyweather.midnightconfig.enableSync":"Enable Real Life Sync",
-  "fancyweather.midnightconfig.enableSync.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Syncs day/night cycle and weather with real-world conditions.\n\n§c§lEnables geolocation to sync weather using your latitude and longitude. See our documentation for details.§r"
+  "fancyweather.midnightconfig.enableSync.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Syncs day/night cycle and weather with real-world conditions.\n\n§c§lEnables geolocation to sync weather using your latitude and longitude. See our documentation for details.§r",
+
+  "fancyweather.midnightconfig.enableCropSync":"§6EXPERIMENTAL§r | Crop Growth Sync",
+  "fancyweather.midnightconfig.enableCropSync.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Crops will grow while you are offline.",
+
+  "fancyweather.midnightconfig.enableFurnaceCookSync":"§6EXPERIMENTAL§r | Furnace Cook Sync",
+  "fancyweather.midnightconfig.enableFurnaceCookSync.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Furnaces will cook while you are offline.",
+
+  "fancyweather.midnightconfig.enablePotionEffectsDurationSync":"§6EXPERIMENTAL§r | Potion Effects Duration Sync",
+  "fancyweather.midnightconfig.enablePotionEffectsDurationSync.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Potion effects will count down while you are offline."
 }
