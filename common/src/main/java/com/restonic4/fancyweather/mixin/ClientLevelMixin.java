@@ -1,9 +1,9 @@
 package com.restonic4.fancyweather.mixin;
 
-import com.restonic4.fancyweather.custom.events.ServerEvents;
+import com.restonic4.fancyweather.custom.events.ClientEvents;
 import com.restonic4.fancyweather.custom.sync.Synchronizer;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,26 +14,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.BooleanSupplier;
 
-@Mixin(ServerLevel.class)
-public class ServerLevelMixin {
-    @Shadow @Final private MinecraftServer server;
+@Mixin(ClientLevel.class)
+public class ClientLevelMixin {
+    @Shadow @Final private Minecraft minecraft;
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void startTick(BooleanSupplier $$0, CallbackInfo ci) {
-        ServerEvents.TICK_STARTED.invoker().onEvent(this.server);
+        ClientEvents.TICK_STARTED.invoker().onEvent(this.minecraft);
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void endTick(BooleanSupplier $$0, CallbackInfo ci) {
-        ServerEvents.TICK_ENDED.invoker().onEvent(this.server);
+        ClientEvents.TICK_ENDED.invoker().onEvent(this.minecraft);
     }
 
-    @Redirect(method = "tickTime", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;setDayTime(J)V"))
-    private void syncTimeWithRealWorld(ServerLevel serverLevel, long newValue) {
+    @Redirect(method = "tickTime", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;setDayTime(J)V"))
+    private void syncTimeWithRealWorld(ClientLevel clientLevel, long newValue) {
         if (Synchronizer.isEnabled()) {
-            serverLevel.setDayTime(Synchronizer.getSyncedTime(serverLevel));
+            clientLevel.setDayTime(Synchronizer.getSyncedTime(clientLevel));
         } else {
-            serverLevel.setDayTime(newValue);
+            clientLevel.setDayTime(newValue);
         }
     }
 }

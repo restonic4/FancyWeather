@@ -6,6 +6,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "CampfireMixin",
+    "CommandsMixin",
     "CropsRainGrowMixin",
     "FireArrowMixin",
     "MinecraftServerMixin",
@@ -13,6 +14,7 @@
     "SleepRainResetMixin"
   ],
   "client": [
+    "ClientLevelMixin"
   ],
   "server": [],
   "injectors": {

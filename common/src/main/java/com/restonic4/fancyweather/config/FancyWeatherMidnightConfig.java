@@ -5,7 +5,7 @@ import eu.midnightdust.lib.config.MidnightConfig;
 
 public class FancyWeatherMidnightConfig extends MidnightConfig {
     public static final String VANILLA = "vanilla";
-    public static final String CUSTOM = "custom";
+    public static final String SYNC = "sync";
 
     /*
         VANILLA TAB
@@ -40,8 +40,10 @@ public class FancyWeatherMidnightConfig extends MidnightConfig {
     @Entry(category = VANILLA) public static boolean enableFireSpreadingArrows = true;
 
     /*
-        CUSTOM TAB
+        SYNC TAB
      */
 
-    @Entry(category = CUSTOM) public static boolean enableCustom = true;
+    @Entry(category = SYNC) public static boolean enableSync = true;
+
+    @Comment(category = VANILLA) public static Comment spacer5;
 }
