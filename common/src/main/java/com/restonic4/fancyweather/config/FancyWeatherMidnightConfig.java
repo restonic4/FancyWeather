@@ -43,7 +43,7 @@ public class FancyWeatherMidnightConfig extends MidnightConfig {
         SYNC TAB
      */
 
-    @Entry(category = SYNC) public static boolean enableSync = true;
+    @Entry(category = SYNC) public static boolean enableSync = false;
 
     @Comment(category = SYNC) public static Comment spacer5;
 }

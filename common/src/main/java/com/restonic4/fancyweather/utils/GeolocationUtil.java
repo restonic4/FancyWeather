@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.restonic4.fancyweather.config.FancyWeatherMidnightConfig;
 import net.minecraft.server.level.ServerLevel;
 import org.jetbrains.annotations.NotNull;
 
@@ -113,6 +114,10 @@ public class GeolocationUtil {
     /* ---------- Network fetch with fallbacks ---------- */
 
     private static LatLng fetchLatLngFromNetwork() throws IOException {
+        if (!FancyWeatherMidnightConfig.enableSync) {
+            throw new IOException("Unable to fetch geolocation, not allowed by user!");
+        }
+
         // Try a sequence of public IP geolocation endpoints. Some return fields "latitude"/"longitude",
         // others "lat"/"lon". We handle both. These are tried in order until one succeeds.
         String[] urls = {

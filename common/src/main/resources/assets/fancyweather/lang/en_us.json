@@ -1,7 +1,7 @@
 {
   "fancyweather.midnightconfig.title":"FancyWeather Config",
   "fancyweather.midnightconfig.category.vanilla":"Vanilla like",
-  "fancyweather.midnightconfig.category.custom":"Custom",
+  "fancyweather.midnightconfig.category.sync":"Real Life Sync",
 
   "fancyweather.midnightconfig.enableImprovedBedRainSkip":"Improved Bed Rain Skip",
   "fancyweather.midnightconfig.enableImprovedBedRainSkip.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Sleeping shortens rain duration instead of stopping it entirely.",
@@ -31,5 +31,8 @@
   "fancyweather.midnightconfig.cropRainBoostMultiplier.tooltip":"The amount of tries the crop executes to grow. Vanilla only tries once.",
 
   "fancyweather.midnightconfig.enableFireSpreadingArrows":"Fire Spreading Arrows",
-  "fancyweather.midnightconfig.enableFireSpreadingArrows.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Arrows on fire spread fire on hit."
+  "fancyweather.midnightconfig.enableFireSpreadingArrows.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Arrows on fire spread fire on hit.",
+
+  "fancyweather.midnightconfig.enableSync":"Enable Real Life Sync",
+  "fancyweather.midnightconfig.enableSync.tooltip":"§c§lNo§r: Vanilla behaviour.\n§a§lYes§r: Syncs day/night cycle and weather with real-world conditions.\n\n§c§lEnables geolocation to sync weather using your latitude and longitude. See our documentation for details.§r"
 }

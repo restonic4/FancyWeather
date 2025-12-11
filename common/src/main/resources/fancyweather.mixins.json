@@ -10,12 +10,13 @@
     "CropsRainGrowMixin",
     "FireArrowMixin",
     "MinecraftServerMixin",
-    "ServerGamePacketListenerImplMixin",
+    "PlayerListMixin",
     "ServerLevelMixin",
     "SleepRainResetMixin"
   ],
   "client": [
-    "ClientLevelMixin"
+    "ClientLevelMixin",
+    "ClientPacketListenerMixin"
   ],
   "server": [],
   "injectors": {

@@ -69,6 +69,10 @@ public class Synchronizer {
             forcedTicks = -1L;
             forcedWMO = -1;
         });
+
+        ServerEvents.PLAYER_JOINED.register((server, serverPlayer) -> {
+            sendSyncPacket(serverPlayer);
+        });
     }
 
     /**
@@ -76,6 +80,7 @@ public class Synchronizer {
      */
     public static void tick(Level level) {
         if (level == null) return;
+        if (!FancyWeatherMidnightConfig.enableSync) return;
 
         int currentWMO = getCurrentWMOCode();
         WeatherState weatherState = WeatherState.fromCode(currentWMO);
@@ -220,6 +225,19 @@ public class Synchronizer {
         return 0;
     }
 
+    public static int getRepresentativeCode(WeatherState type, WeatherStateStrength strength) {
+        // Try intersection between both enums (best choice)
+        for (int codeType : type.getCodes()) {
+            for (int codeStrength : strength.getCodes()) {
+                if (codeType == codeStrength) return codeType;
+            }
+        }
+
+        // Fallback: just return type’s first code
+        return type.getCodes()[0];
+    }
+
+
     public static void setForcedWMO(int wmo) {
         Synchronizer.forcedWMO = wmo;
     }
@@ -264,6 +282,10 @@ public class Synchronizer {
         } else {
             LOG.warn("Failed to save world data!");
         }
+    }
+
+    public static void setLoadedData(WeatherSave data) {
+        loadedData = data;
     }
 
     public static void sendSyncPacket(ServerPlayer player) {

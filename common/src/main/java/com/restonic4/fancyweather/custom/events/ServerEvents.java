@@ -3,6 +3,7 @@ package com.restonic4.fancyweather.custom.events;
 import com.restonic4.fancyweather.custom.events.factory.Event;
 import com.restonic4.fancyweather.custom.events.factory.EventFactory;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 
 public class ServerEvents {
     public static final Event<WorldLoaded> WORLD_LOADED = EventFactory.createArray(WorldLoaded.class, callbacks -> (server) -> {
@@ -47,5 +48,16 @@ public class ServerEvents {
     @FunctionalInterface
     public interface TickEnded {
         void onEvent(MinecraftServer server);
+    }
+
+    public static final Event<PlayerJoined> PLAYER_JOINED = EventFactory.createArray(PlayerJoined.class, callbacks -> (server, serverPlayer) -> {
+        for (PlayerJoined callback : callbacks) {
+            callback.onEvent(server, serverPlayer);
+        }
+    });
+
+    @FunctionalInterface
+    public interface PlayerJoined {
+        void onEvent(MinecraftServer server, ServerPlayer serverPlayer);
     }
 }
