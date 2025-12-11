@@ -5,7 +5,10 @@ import com.restonic4.fancyweather.MainFancyWeather;
 import com.restonic4.fancyweather.config.FancyWeatherMidnightConfig;
 import com.restonic4.fancyweather.custom.events.ClientEvents;
 import com.restonic4.fancyweather.custom.events.ServerEvents;
+import com.restonic4.fancyweather.custom.weather.WeatherAPI;
+import com.restonic4.fancyweather.custom.weather.WeatherVisualEffectsController;
 import com.restonic4.fancyweather.utils.FileManager;
+import com.restonic4.fancyweather.utils.GeolocationUtil;
 import com.restonic4.fancyweather.utils.MathHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -25,10 +28,12 @@ TODO:
 public class Synchronizer {
     public static final String WORLD_GLOBAL_DATA_FILE_NAME = MainFancyWeather.sign("world.json");
     private static final int AUTOSAVE_INTERVAL_TICKS = MathHelper.getTicksForMinutes(2);
+    private static final int WEATHER_UPDATE_INTERVAL_TICKS = MathHelper.getTicksForMinutes(2);
 
     // Cache
     private static WeatherSave loadedData = null;
     private static int autosaveTickCounter = 0;
+    private static int weatherUpdateTickCounter = 0;
     private static long forcedTicks = -1L;
 
     public static void init() {
@@ -38,6 +43,11 @@ public class Synchronizer {
 
         ClientEvents.TICK_STARTED.register((minecraft) -> {
             tick(minecraft.level);
+            WeatherVisualEffectsController.tick();
+        });
+
+        ServerEvents.WORLD_LOADED.register((server) -> {
+            WeatherAPI.updateWeatherData(server.overworld());
         });
 
         // Saving data
@@ -63,6 +73,12 @@ public class Synchronizer {
             if (autosaveTickCounter >= AUTOSAVE_INTERVAL_TICKS) {
                 save(serverLevel);
                 autosaveTickCounter = 0;
+            }
+
+            weatherUpdateTickCounter++;
+            if (weatherUpdateTickCounter >= WEATHER_UPDATE_INTERVAL_TICKS) {
+                WeatherAPI.updateWeatherData(serverLevel);
+                weatherUpdateTickCounter = 0;
             }
         }
 
@@ -140,6 +156,10 @@ public class Synchronizer {
 
     public static void setForcedTicks(long forcedTicks) {
         Synchronizer.forcedTicks = forcedTicks;
+    }
+
+    public static WeatherSave getLoadedData() {
+        return loadedData;
     }
 
     /**

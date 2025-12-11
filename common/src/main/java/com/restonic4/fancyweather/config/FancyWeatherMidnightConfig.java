@@ -45,5 +45,6 @@ public class FancyWeatherMidnightConfig extends MidnightConfig {
 
     @Entry(category = SYNC) public static boolean enableSync = true;
 
-    @Comment(category = VANILLA) public static Comment spacer5;
+    @Comment(category = SYNC) public static Comment spacer5;
+
 }
