@@ -3,6 +3,7 @@ package com.restonic4.fancyweather.custom.commands.core;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.restonic4.fancyweather.Constants;
+import com.restonic4.fancyweather.custom.commands.DebugFunction;
 import com.restonic4.fancyweather.custom.commands.PrintFunction;
 import com.restonic4.fancyweather.custom.commands.TimeFunction;
 import com.restonic4.fancyweather.custom.commands.WeatherFunction;
@@ -19,6 +20,7 @@ public class FancyWeatherCommands {
         registerFunction(new PrintFunction());
         registerFunction(new TimeFunction());
         registerFunction(new WeatherFunction());
+        registerFunction(new DebugFunction());
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {

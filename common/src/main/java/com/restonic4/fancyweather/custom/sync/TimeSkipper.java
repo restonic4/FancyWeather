@@ -134,6 +134,17 @@ public class TimeSkipper {
         }
     }
 
+    public static void applyGlowToAllProcessedEntities(MinecraftServer server, boolean value) {
+        for (ServerLevel level : server.getAllLevels()) {
+            for (UUID id : processed_entities) {
+                Entity entity = level.getEntity(id);
+                if (entity != null && entity.isAlive()) {
+                    entity.setGlowingTag(value);
+                }
+            }
+        }
+    }
+
     private static void processStartUp(MinecraftServer server, long ticksSkipped) {
 
     }
