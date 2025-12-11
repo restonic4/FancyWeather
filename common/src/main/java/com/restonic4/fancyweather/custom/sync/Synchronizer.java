@@ -1,5 +1,6 @@
 package com.restonic4.fancyweather.custom.sync;
 
+import com.google.gson.Gson;
 import com.restonic4.fancyweather.Constants;
 import com.restonic4.fancyweather.MainFancyWeather;
 import com.restonic4.fancyweather.config.FancyWeatherMidnightConfig;
@@ -9,7 +10,13 @@ import com.restonic4.fancyweather.custom.weather.*;
 import com.restonic4.fancyweather.utils.FileManager;
 import com.restonic4.fancyweather.utils.GeolocationUtil;
 import com.restonic4.fancyweather.utils.MathHelper;
+import io.netty.buffer.Unpooled;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 
 import java.time.Instant;
@@ -28,6 +35,7 @@ public class Synchronizer {
     public static final String WORLD_GLOBAL_DATA_FILE_NAME = MainFancyWeather.sign("world.json");
     private static final int AUTOSAVE_INTERVAL_TICKS = MathHelper.getTicksForMinutes(2);
     private static final int WEATHER_UPDATE_INTERVAL_TICKS = MathHelper.getTicksForMinutes(2);
+    public static final ResourceLocation SYNC_PACKET_ID = new ResourceLocation(Constants.MOD_ID, "sync_weather");
 
     // Cache
     private static WeatherSave loadedData = null;
@@ -96,7 +104,7 @@ public class Synchronizer {
             } else if (weatherState == WeatherState.CLEAR || weatherState == WeatherState.CLOUDY || weatherState == WeatherState.FOG ) {
                 serverLevel.setWeatherParameters(20, 0, false, false);
             }
-        } else { // Client side effects, cloudy and fog
+        } else if (level instanceof ClientLevel clientLevel) { // Client side effects, cloudy and fog
             if (weatherState == WeatherState.CLOUDY) {
                 if (weatherStateStrength == WeatherStateStrength.SLIGHT) {
                     WeatherVisualEffectsController.setCloudiness(0.35f);
@@ -217,14 +225,14 @@ public class Synchronizer {
     }
 
     /**
-     * Loads or creates the save file
+     * Loads or creates the save file on server side
      */
-    public static void ensureData(ServerLevel level) {
+    public static void ensureData(ServerLevel serverLevel) {
         if (loadedData != null) {
             return;
         }
 
-        Optional<WeatherSave> loaded = FileManager.load(level, WORLD_GLOBAL_DATA_FILE_NAME, WeatherSave.class);
+        Optional<WeatherSave> loaded = FileManager.load(serverLevel, WORLD_GLOBAL_DATA_FILE_NAME, WeatherSave.class);
         loaded.ifPresentOrElse(
                 (data) -> {
                     loadedData = data;
@@ -237,7 +245,7 @@ public class Synchronizer {
 
                     loadedData = save;
 
-                    FileManager.save(level, WORLD_GLOBAL_DATA_FILE_NAME, save);
+                    FileManager.save(serverLevel, WORLD_GLOBAL_DATA_FILE_NAME, save);
                     LOG.info("World data created!");
                 }
         );
@@ -255,6 +263,23 @@ public class Synchronizer {
             LOG.info("World data saved!");
         } else {
             LOG.warn("Failed to save world data!");
+        }
+    }
+
+    public static void sendSyncPacket(ServerPlayer player) {
+        if (loadedData == null) return;
+
+        FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+
+        String json = FileManager.GSON.toJson(loadedData);
+        buf.writeUtf(json);
+
+        player.connection.send(new ClientboundCustomPayloadPacket(SYNC_PACKET_ID, buf));
+    }
+
+    public static void syncToAllPlayers(ServerLevel level) {
+        for (ServerPlayer player : level.players()) {
+            sendSyncPacket(player);
         }
     }
 }
