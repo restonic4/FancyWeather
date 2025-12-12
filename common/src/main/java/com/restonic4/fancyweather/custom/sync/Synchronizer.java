@@ -27,10 +27,6 @@ import java.util.Optional;
 
 import static com.restonic4.fancyweather.Constants.LOG;
 
-/*
-TODO:
-    - Synchronization / Propper networking setup / Client & Server separation
- */
 public class Synchronizer {
     public static final String WORLD_GLOBAL_DATA_FILE_NAME = MainFancyWeather.sign("world.json");
     private static final int AUTOSAVE_INTERVAL_TICKS = MathHelper.getTicksForMinutes(2);
