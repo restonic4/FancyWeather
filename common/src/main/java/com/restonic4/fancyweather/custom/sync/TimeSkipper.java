@@ -22,7 +22,7 @@ import static com.restonic4.fancyweather.Constants.MOD_ID;
 public class TimeSkipper {
     public static final String WAS_LOADED_TAG = MOD_ID + ":seen_before";
     private static final int ASYNC_CHUNKS_PER_TICK = 2;
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     // Cache
     private static long startUpSavedDiff;
